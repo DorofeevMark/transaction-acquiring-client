@@ -19,5 +19,5 @@
   <input formControlName="cvv" id="cvv" />
   <app-control-messages [control]="form.get('cvv')"></app-control-messages>
 
-  <button type="submit" [disabled]="!form.valid">Submit</button>
+  <button type="submit" (click)="proceedPayment()">Submit</button>
 </form>

@@ -1,21 +1,22 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {ValidationService} from '../validation.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-control-messages',
   templateUrl: './control-messages.component.html',
   styleUrls: ['./control-messages.component.scss']
 })
-export class ControlMessagesComponent implements OnInit {
+export class ControlMessagesComponent implements OnInit, OnDestroy {
   public errorMessages = [];
+  private valueChangeSubscription: Subscription;
   @Input() control: FormControl;
   constructor() {}
 
   ngOnInit() {
-    this.control.valueChanges.subscribe(changes => {
+    this.valueChangeSubscription = this.control.valueChanges.subscribe(changes => {
       this.errorMessages = [];
-      console.log(this.control);
       for (const propertyName in this.control.errors) {
         if (
           this.control.errors.hasOwnProperty(propertyName)
@@ -27,5 +28,9 @@ export class ControlMessagesComponent implements OnInit {
         }
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.valueChangeSubscription.unsubscribe();
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ValidationService} from '../validation.service';
+import {PaymentService} from '../payment.service';
 
 @Component({
   selector: 'app-input-form',
@@ -9,12 +10,12 @@ import {ValidationService} from '../validation.service';
 })
 export class InputFormComponent implements OnInit {
   public form: any;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private paymentService: PaymentService) {
     this.form = this.formBuilder.group({
       bin: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(19), ValidationService.creditCardValidator]],
       cardholderName: ['', Validators.required],
-      expirationMonth: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-      expirationYear: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
+      expirationMonth: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
+      expirationYear: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
       cvv: ['', [Validators.required, ValidationService.cvvValidator]]
     });
   }
@@ -23,9 +24,16 @@ export class InputFormComponent implements OnInit {
   }
 
   proceedPayment() {
-    if (this.form.dirty && this.form.valid) {
-
-    }
+      console.log(this.form);
+      this.paymentService.proceedPayment(
+        this.form.value.bin,
+        this.form.value.cardholderName,
+        this.form.value.expirationMonth,
+        this.form.value.expirationYear,
+        this.form.value.cvv,
+      ).subscribe(res => {
+        console.log(res);
+      });
   }
 
 }
