@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ValidationService} from '../validation.service';
 import {PaymentService} from '../payment.service';
+import {LogService} from '../log.service';
 
 @Component({
   selector: 'app-input-form',
@@ -10,7 +11,7 @@ import {PaymentService} from '../payment.service';
 })
 export class InputFormComponent implements OnInit {
   public form: any;
-  constructor(private formBuilder: FormBuilder, private paymentService: PaymentService) {
+  constructor(private formBuilder: FormBuilder, private paymentService: PaymentService, private logService: LogService) {
     this.form = this.formBuilder.group({
       bin: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(19), ValidationService.creditCardValidator]],
       cardholderName: ['', Validators.required],
@@ -18,6 +19,8 @@ export class InputFormComponent implements OnInit {
       expirationYear: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
       cvv: ['', [Validators.required, ValidationService.cvvValidator]]
     });
+
+    this.logService.getLogs().subscribe(logs => console.log(logs));
   }
 
   ngOnInit() {
