@@ -1,6 +1,6 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {ValidationService} from '../validation.service';
+import {ValidationService} from '../../services/validation.service';
 import {Subscription} from 'rxjs';
 
 @Component({
