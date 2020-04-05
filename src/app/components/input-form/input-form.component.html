@@ -1,0 +1,52 @@
+<button mat-raised-button color="accent" routerLink="logs">View logs</button>
+<form [formGroup]="form">
+  <mat-form-field class="d-block">
+    <mat-label>Card Number</mat-label>
+    <input matInput formControlName="bin" id="bin" />
+    <app-control-messages [control]="form.get('bin')"></app-control-messages>
+  </mat-form-field>
+
+  <mat-form-field class="d-block">
+    <mat-label>Cardholder Name</mat-label>
+    <input matInput formControlName="cardholderName" id="cardholderName" />
+    <app-control-messages [control]="form.get('cardholderName')"></app-control-messages>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Expiration Month</mat-label>
+    <input matInput formControlName="expirationMonth" id="expirationMonth" />
+    <app-control-messages [control]="form.get('expirationMonth')"></app-control-messages>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Expiration Year</mat-label>
+    <input matInput formControlName="expirationYear" id="expirationYear" />
+    <app-control-messages [control]="form.get('expirationYear')"></app-control-messages>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>CVV</mat-label>
+    <input matInput formControlName="cvv" id="cvv" />
+    <app-control-messages [control]="form.get('cvv')"></app-control-messages>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input matInput formControlName="amount" id="amount" />
+    <app-control-messages [control]="form.get('amount')"></app-control-messages>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Currency</mat-label>
+    <input matInput formControlName="currency" id="currency" />
+    <app-control-messages [control]="form.get('currency')"></app-control-messages>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Merchant Id</mat-label>
+    <input matInput formControlName="merchantId" id="merchantId" />
+    <app-control-messages [control]="form.get('merchantId')"></app-control-messages>
+  </mat-form-field>
+
+  <button mat-raised-button type="submit" color="primary" (click)="proceedPayment()">Submit</button>
+</form>
